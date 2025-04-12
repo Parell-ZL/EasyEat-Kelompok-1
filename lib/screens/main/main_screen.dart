@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             iconSize: 28,
             onPressed: () => tabController.animateTo(1),
             icon: Icon(
-              Icons.shopping_cart,
+              Icons.history,
               color: Colors.black,
             )),
         IconButton(

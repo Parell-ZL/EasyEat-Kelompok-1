@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_eat/models/ads_model.dart';
 import 'package:easy_eat/models/foodStall_model.dart';
 
+import 'package:easy_eat/static/navigation_route.dart';
+
 import 'package:easy_eat/widgets/home/ads_card_widget.dart';
 import 'package:easy_eat/widgets/home/stall_card_widget.dart';
 import 'package:easy_eat/widgets/home/welcome_text_widget.dart';
@@ -48,7 +50,6 @@ Widget homePage(context, controller) {
                 ),
               ),
             ),
-            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CategoryWidget(),
@@ -60,11 +61,18 @@ Widget homePage(context, controller) {
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             final stall = foodstallList[index];
-            return StallCardWidget(stall: stall, onTap: () {});
+            return StallCardWidget(
+              stall: stall,
+              onTap: () {
+                Navigator.pushNamed(context, NavigationRoute.detailRoute.name,
+                    arguments: stall);
+              },
+            );
           },
           childCount: foodstallList.length,
         ),
       ),
+      SliverToBoxAdapter(child: SizedBox(height: 50))
     ],
   );
 }
