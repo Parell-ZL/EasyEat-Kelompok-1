@@ -1,3 +1,5 @@
+import 'package:easy_eat/models/food_model.dart';
+import 'package:easy_eat/static/navigation_route.dart';
 import 'package:easy_eat/widgets/stall/menu_card_widget.dart';
 import 'package:easy_eat/widgets/stall/topFood_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,9 @@ class StallPage extends StatelessWidget {
                 icon: const Icon(
                   Icons.shopping_cart,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, NavigationRoute.cartRoute.name);
+                },
               ),
             ],
           ),
@@ -63,8 +67,9 @@ class StallPage extends StatelessWidget {
                         final tfood = foodStall.topFoods[index];
                         return TopfoodCardWidget(
                           name: tfood.name,
-                          price: tfood.price.toString(),
+                          price: tfood.price,
                           image: tfood.frontImage,
+                          onTap: () => showSheet(context, tfood),
                         );
                       },
                     ),
@@ -91,23 +96,7 @@ class StallPage extends StatelessWidget {
                   child: MenuCardWidget(
                     food: food,
                     onTap: () {
-                      showModalBottomSheet(
-                          isScrollControlled: true,
-                          showDragHandle: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(50),
-                            ),
-                          ),
-                          barrierColor: const Color.fromRGBO(26, 23, 22, 0.6),
-                          backgroundColor:
-                              const Color.fromRGBO(239, 239, 232, 1),
-                          context: context,
-                          builder: (context) {
-                            return BottomSheetWidget(
-                              food: food,
-                            );
-                          });
+                      showSheet(context, food);
                     },
                   ),
                 );
@@ -118,5 +107,25 @@ class StallPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<dynamic> showSheet(BuildContext context, Food food) {
+    return showModalBottomSheet(
+        isScrollControlled: true,
+        showDragHandle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(50),
+          ),
+        ),
+        barrierColor: const Color.fromRGBO(26, 23, 22, 0.6),
+        backgroundColor: const Color.fromRGBO(239, 239, 232, 1),
+        context: context,
+        builder: (context) {
+          return BottomSheetWidget(
+            food: food,
+            stallName: foodStall.name,
+          );
+        });
   }
 }

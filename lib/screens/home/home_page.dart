@@ -18,7 +18,9 @@ Widget homePage(context, controller) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WelcomeTextWidget(),
+            WelcomeTextWidget(
+                onTap: () => Navigator.pushNamed(
+                    context, NavigationRoute.cartRoute.name)),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),

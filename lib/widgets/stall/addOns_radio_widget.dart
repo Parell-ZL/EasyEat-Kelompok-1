@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 
 class AddonsRadioWidget extends StatefulWidget {
   final Map<String, double> options;
-  const AddonsRadioWidget({super.key, this.options = const {}});
+  final Function(dynamic value) onSelected;
+  const AddonsRadioWidget(
+      {super.key, this.options = const {}, required this.onSelected});
 
   @override
   State<AddonsRadioWidget> createState() => _AddonsRadioWidgetState();
@@ -52,6 +54,7 @@ class _AddonsRadioWidgetState extends State<AddonsRadioWidget> {
                 setState(() {
                   selected = value;
                 });
+                widget.onSelected(price);
               },
             ),
             Expanded(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WelcomeTextWidget extends StatelessWidget {
-  const WelcomeTextWidget({super.key});
+  final Function() onTap;
+  const WelcomeTextWidget({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class WelcomeTextWidget extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+          IconButton(onPressed: onTap, icon: Icon(Icons.shopping_cart))
         ],
       ),
     );

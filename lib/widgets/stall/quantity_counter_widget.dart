@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 class QuantityCounterWidget extends StatefulWidget {
-  const QuantityCounterWidget({super.key});
+  final int qty;
+  final void Function() decrement;
+  final void Function() increment;
+  const QuantityCounterWidget(
+      {super.key,
+      required this.qty,
+      required this.increment,
+      required this.decrement});
 
   @override
   State<QuantityCounterWidget> createState() => _QuantityCounterWidgetState();
 }
 
 class _QuantityCounterWidgetState extends State<QuantityCounterWidget> {
-  int count = 1;
-
   @override
   void initState() {
     super.initState();
@@ -20,31 +25,19 @@ class _QuantityCounterWidgetState extends State<QuantityCounterWidget> {
     super.dispose();
   }
 
-  void increment() {
-    setState(() {
-      count++;
-    });
-  }
-
-  void decrement() {
-    setState(() {
-      if (count == 1) return;
-      count--;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         IconButton(
-            onPressed: decrement, icon: Icon(Icons.remove_circle, size: 30)),
+            onPressed: widget.decrement,
+            icon: Icon(Icons.remove_circle, size: 30)),
         Text(
-          count.toString(),
+          widget.qty.toString(),
           style: TextStyle(fontSize: 20),
         ),
         IconButton(
-            onPressed: increment,
+            onPressed: widget.increment,
             icon: Icon(
               Icons.add_circle,
               size: 30,

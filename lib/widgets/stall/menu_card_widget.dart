@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MenuCardWidget extends StatelessWidget {
   final food;
@@ -43,7 +44,9 @@ class MenuCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                food.price.toString(),
+                NumberFormat.currency(
+                        locale: 'id_ID', symbol: '', decimalDigits: 0)
+                    .format(food.price),
                 style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black45,
@@ -62,7 +65,7 @@ class MenuCardWidget extends StatelessWidget {
                     ),
                     child: Icon(
                       Icons.add_circle,
-                      color: Color.fromRGBO(235, 232, 187, 1),
+                      color: Colors.white,
                       size: 32,
                     ),
                   ),

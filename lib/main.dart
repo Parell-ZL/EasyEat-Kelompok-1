@@ -5,6 +5,7 @@ import 'providers/cart_provider.dart';
 
 import 'package:easy_eat/screens/main/main_screen.dart';
 import 'package:easy_eat/screens/stall/stall_page.dart';
+import 'package:easy_eat/screens/cart/cart_page.dart';
 
 import 'package:easy_eat/static/navigation_route.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
               foodStall:
                   ModalRoute.of(context)?.settings.arguments as Foodstall,
             ),
+        NavigationRoute.cartRoute.name: (context) => CartPage(),
       },
     );
   }

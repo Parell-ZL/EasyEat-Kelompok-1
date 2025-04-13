@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class OptionFoodWidget extends StatefulWidget {
   final List<String> options;
-  const OptionFoodWidget({super.key, this.options = const []});
+  final Function(String) onSelected;
+  const OptionFoodWidget(
+      {super.key, this.options = const [], required this.onSelected});
 
   @override
   State<OptionFoodWidget> createState() => _OptionFoodWidgetState();
@@ -17,7 +19,6 @@ class _OptionFoodWidgetState extends State<OptionFoodWidget> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return Column(children: [
       const SizedBox(height: 15),
@@ -50,6 +51,7 @@ class _OptionFoodWidgetState extends State<OptionFoodWidget> {
                 setState(() {
                   selected = value;
                 });
+                widget.onSelected(value!);
               },
             ),
             Text(

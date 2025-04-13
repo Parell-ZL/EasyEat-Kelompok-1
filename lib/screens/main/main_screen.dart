@@ -1,3 +1,4 @@
+import 'package:easy_eat/screens/activity/activity_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:easy_eat/screens/home/home_page.dart';
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BottomBar(
       width: MediaQuery.of(context).size.width * 0.91,
       borderRadius: BorderRadius.circular(40.0),
-      barColor: Color.fromRGBO(235, 232, 187, 1),
+      barColor: Color.fromRGBO(223, 216, 114, 1),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         IconButton(
             iconSize: 28,
@@ -63,7 +64,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       ]),
       body: (context, controller) => TabBarView(children: [
         homePage(context, controller),
-        CartPage(),
+        activityPage(context, controller),
         Center(child: Text("Profile")),
       ], controller: tabController),
     );

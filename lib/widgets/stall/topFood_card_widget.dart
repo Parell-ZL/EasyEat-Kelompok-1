@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TopfoodCardWidget extends StatelessWidget {
   final String name;
-  final String price;
+  final double price;
   final String image;
+  final Function() onTap;
 
   const TopfoodCardWidget(
       {super.key,
       required this.name,
       required this.price,
-      required this.image});
+      required this.image,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,9 @@ class TopfoodCardWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      price,
+                      NumberFormat.currency(
+                              locale: 'id_ID', symbol: '', decimalDigits: 0)
+                          .format(price),
                       style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -54,15 +59,18 @@ class TopfoodCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Icon(
-                  Icons.add_circle,
-                  color: Color.fromRGBO(235, 232, 187, 1),
-                  size: 32,
+              GestureDetector(
+                onTap: onTap,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Icon(
+                    Icons.add_circle,
+                    color: Colors.white,
+                    size: 32,
+                  ),
                 ),
               )
             ],
