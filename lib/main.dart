@@ -3,6 +3,7 @@ import 'package:easy_eat/providers/activity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/cart_provider.dart';
+import 'package:easy_eat/screens/login/login_screen.dart';
 
 import 'package:easy_eat/screens/main/main_screen.dart';
 import 'package:easy_eat/screens/stall/stall_page.dart';
@@ -27,10 +28,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainScreen(),
-      initialRoute: NavigationRoute.mainRoute.name,
+      home: LoginScreen(),
+      initialRoute: NavigationRoute.loginRoute.name,
       routes: {
         NavigationRoute.mainRoute.name: (context) => MainScreen(),
+        NavigationRoute.loginRoute.name: (context) => LoginScreen(),
         NavigationRoute.detailRoute.name: (context) => StallPage(
               foodStall:
                   ModalRoute.of(context)?.settings.arguments as Foodstall,
