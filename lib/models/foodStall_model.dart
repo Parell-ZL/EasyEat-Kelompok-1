@@ -29,7 +29,7 @@ List<Foodstall> foodstallList = [
     image: "assets/images/stall.jpg",
     description: "Berbgai macam nasi goreng",
     isOpen: true,
-    category: "Category 1",
+    category: "Per-nasi-an", // Updated category
     availableFoods: [
       Food(
         name: "Nasi Goreng ayam",
@@ -99,7 +99,7 @@ List<Foodstall> foodstallList = [
     image: "assets/images/stall.jpg",
     description: "Description nasi goreng",
     isOpen: true,
-    category: "Category 1",
+    category: "Per-nasi-an", // Updated category
     availableFoods: [
       Food(
         name: "Nasi Bakar Ayam",
@@ -147,7 +147,7 @@ List<Foodstall> foodstallList = [
     image: "assets/images/stall.jpg",
     description: "Description nasi goreng",
     isOpen: true,
-    category: "Category 1",
+    category: "Per-nasi-an", // Updated category
     availableFoods: [
       Food(
         name: "Nasi Bakar Ayam",
@@ -195,7 +195,7 @@ List<Foodstall> foodstallList = [
     image: "assets/images/stall.jpg",
     description: "Description nasi goreng",
     isOpen: true,
-    category: "Category 1",
+    category: "Per-nasi-an", // Updated category
     availableFoods: [
       Food(
         name: "Nasi Bakar Ayam",
