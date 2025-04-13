@@ -1,4 +1,5 @@
 import 'package:easy_eat/models/foodStall_model.dart';
+import 'package:easy_eat/providers/activity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/cart_provider.dart';
@@ -14,6 +15,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => ActivityProvider()),
       ],
       child: MyApp(),
     ),

@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return BottomBar(
       width: MediaQuery.of(context).size.width * 0.91,
       borderRadius: BorderRadius.circular(40.0),
-      barColor: Color.fromRGBO(223, 216, 114, 1),
+      barColor: Color(0xFFEBE8BB),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         IconButton(
             iconSize: 28,
@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       ]),
       body: (context, controller) => TabBarView(children: [
         homePage(context, controller),
-        activityPage(context, controller),
+        ActivityPage(),
         Center(child: Text("Profile")),
       ], controller: tabController),
     );

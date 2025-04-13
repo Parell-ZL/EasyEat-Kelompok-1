@@ -57,7 +57,7 @@ class StallProfile extends StatelessWidget {
                 border: Border.all(color: Colors.black, width: 0.5),
                 borderRadius: BorderRadius.circular(40),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

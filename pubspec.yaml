@@ -38,6 +38,18 @@ dependencies:
   flutter_floating_bottom_bar: ^1.2.1+1
   flip_card: ^0.7.0
   intl: ^0.20.2
+  flutter_native_splash: ^2.4.4
+
+flutter_native_splash:
+  color: "#EBE8BB"
+  image: "assets/images/splash.png"
+  color_dark: "#EBE8BB"
+  image_dark: "assets/images/splash.png"
+  android_12:
+    image: "assets/images/splash.png"
+    color: "#EBE8BB"
+    image_dark: "assets/images/splash.png"
+    color_dark: "#EBE8BB"
 
 dev_dependencies:
   flutter_test:

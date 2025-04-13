@@ -47,6 +47,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("${widget.food.name} berhasil ditambahkan!"),
+          duration: const Duration(milliseconds: 700),
         ),
       );
     }

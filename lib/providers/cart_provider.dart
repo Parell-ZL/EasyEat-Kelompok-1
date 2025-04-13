@@ -6,12 +6,19 @@ class CartProvider with ChangeNotifier {
   final Map<String, bool> _stallPackagingFees = {};
 
   void togglePackagingFee(String stallName, bool include) {
-    _stallPackagingFees[stallName] = include;
+    for (var item in _items) {
+      if (item.stallName == stallName) {
+        item.isPackagingFeeIncluded = include;
+      }
+    }
     notifyListeners();
   }
 
   double get packagingFeeTotal {
-    return _stallPackagingFees.values.where((v) => v).length * 1000;
+    return _items
+            .where((item) => item.isPackagingFeeIncluded)
+            .fold(0, (sum, item) => sum + item.qty) *
+        1000;
   }
 
   List<OrderItem> get items => _items;
@@ -57,8 +64,9 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // void clearCart() {
-  //   _cartItems.clear();
-  //   notifyListeners();
-  // }
+  void clearCart() {
+    _stallPackagingFees.clear();
+    _items.clear();
+    notifyListeners();
+  }
 }

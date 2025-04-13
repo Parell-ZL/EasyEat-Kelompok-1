@@ -1,3 +1,6 @@
+import 'package:easy_eat/providers/activity_provider.dart';
+import 'package:easy_eat/screens/activity/onGoing_section.dart';
+import 'package:easy_eat/static/navigation_route.dart';
 import 'package:easy_eat/widgets/cart/switchWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,74 +16,76 @@ class CartPage extends StatelessWidget {
     final totalPrice = cartProvider.totalAmount;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Checkout")),
+      appBar: AppBar(
+        title: Text("Checkout"),
+        centerTitle: true,
+      ),
       backgroundColor: const Color.fromRGBO(239, 239, 232, 1),
       body: Stack(
         children: [
-          CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.pin_drop,
-                        size: 30,
-                      ),
-                      title: Text(
-                        "Pickup dari",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14,
-                        ),
-                      ),
-                      subtitle: Text(
-                        cartProvider.stallNames.join(", "),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+          groupedItems.isEmpty
+              ? Center(child: Text("Belum ada makanan di keranjang"))
+              : CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.pin_drop,
+                              size: 30,
+                            ),
+                            title: Text(
+                              "Pickup dari",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                              ),
+                            ),
+                            subtitle: Text(
+                              cartProvider.stallNames.join(", "),
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 18, vertical: 5),
+                            child: Divider(
+                              height: 1,
+                            ),
+                          ),
+                          ListTile(
+                            leading: Icon(
+                              Icons.access_time_rounded,
+                              size: 30,
+                            ),
+                            title: Text(
+                              "Estimasi waktu memasak",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                              ),
+                            ),
+                            subtitle: Text(
+                              "10 menit",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Container(
+                            color: Color.fromRGBO(217, 217, 217, 1),
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Text("Pesanan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 5),
-                      child: Divider(
-                        height: 1,
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.access_time_rounded,
-                        size: 30,
-                      ),
-                      title: Text(
-                        "Estimasi waktu memasak",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14,
-                        ),
-                      ),
-                      subtitle: Text(
-                        "10 menit",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Container(
-                      color: Color.fromRGBO(217, 217, 217, 1),
-                      width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                      child: Text("Pesanan",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500)),
-                    )
-                  ],
-                ),
-              ),
-              groupedItems.isEmpty
-                  ? SliverFillRemaining(
-                      child: Center(child: Text("Cart is Empty")))
-                  : SliverList(
+                    SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, stallIndex) {
                           final stallName =
@@ -201,9 +206,9 @@ class CartPage extends StatelessWidget {
                         childCount: groupedItems.length,
                       ),
                     ),
-              SliverToBoxAdapter(child: SizedBox(height: 170)),
-            ],
-          ),
+                    SliverToBoxAdapter(child: SizedBox(height: 170)),
+                  ],
+                ),
           // Floating Checkout Button
           if (groupedItems.isNotEmpty)
             Positioned(
@@ -274,7 +279,32 @@ class CartPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            final activityProvider =
+                                Provider.of<ActivityProvider>(context,
+                                    listen: false);
+
+                            // Convert cart items to format yang bisa diterima oleh activityProvider
+                            final Map<String, List<OrderItem>> orderItems = {};
+
+                            // Kita gunakan key apapun karena nanti akan di-group ulang di activityProvider
+                            orderItems['cart_items'] =
+                                List.from(cartProvider.items);
+
+                            // Add to ongoing orders (akan di-group by stall di provider)
+                            activityProvider.addOnGoingOrder(orderItems);
+
+                            // Clear cart
+                            cartProvider.clearCart();
+
+                            // Display SnackBar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Pesanan berhasil dibuat!"),
+                                duration: Duration(milliseconds: 400),
+                              ),
+                            );
+                          },
                           child: Text("Pesan-Pickup di counter")),
                     )
                   ],
@@ -283,17 +313,6 @@ class CartPage extends StatelessWidget {
             ),
         ],
       ),
-      // bottomNavigationBar: groupedItems.isNotEmpty
-      //     ? Padding(
-      //         padding: EdgeInsets.all(16),
-      //         child: ElevatedButton(
-      //           onPressed: () {
-      //             // cartProvider.clearCart();
-      //           },
-      //           child: Text("Checkout All"),
-      //         ),
-      //       )
-      //     : null,
     );
   }
 
